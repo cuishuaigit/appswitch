@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-appswitch
+  namespace: kube-system
+  labels:
+    k8s-app: appswitch
+spec:
+  selector:
+    matchLabels:
+      name: kube-appswitch
+  template:
+    metadata:
+      labels:
+        name: kube-appswitch
+    spec:
+      hostNetwork: true
+      hostPID: true
+      containers:
+      - name: appswitch-daemon
+        image: appswitch/ax
+        env:
+        - name: AX_NEIGHBORS
+          value: "10.42.8.7,10.42.7.11,10.42.3.28"
+        - name: AX_DRIVER
+          value: "user"
+        - name: AX_CLUSTER
+          value: "cluster0"
+        - name: AX_OPTS
+          value: "--clean"
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "200Mi"
+          limits:
+            cpu: "200m"
+            memory: "200Mi"
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: bin
+          mountPath: /hostbin
+        - name: sock
+          mountPath: /var/run/appswitch
+      volumes:
+        - name: bin
+          hostPath:
+            path: /usr/bin
+        - name: sock
+          hostPath:
+            path: /var/run/appswitch

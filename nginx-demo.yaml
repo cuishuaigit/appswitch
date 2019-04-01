@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  namespace: kube-system
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    command: ['/usr/bin/ax','run','--ip','1.1.1.1','--name','nginx-demo',nginx,'-g', 'daemon off;']
+    ports:
+    - containerPort: 80
+    volumeMounts:
+      - name: bin
+        mountPath: /usr/bin/ax
+      - name: run
+        mountPath: /var/run/appswitch
+      - name: dns
+        mountPath: /etc/resolv.conf
+  volumes:
+    - name: bin
+      hostPath:
+        path: /usr/bin/ax
+    - name: run
+      hostPath:
+        path: /var/run/appswitch
+    - name: dns
+      hostPath:
+        path: /var/run/appswitch/appswitch-resolv.conf
