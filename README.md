@@ -3,7 +3,7 @@ k8s  istio net  docker
 
 [appswitch](https://appswitch.readthedocs.io/en/latest/overview.html)
 [appswitch-blog](http://appswitch.io/blog/kubernetes_istio_and_network_function_devirtualization_with_appswitch/)
-
+[my-blog](https://www.cnblogs.com/cuishuai/p/10622617.html)
 ## Deploy appswitch to kubernetes cluster with daemonset
 
 ```bash
@@ -42,4 +42,8 @@ k8s  istio net  docker
   Accept-Ranges: bytes
 ```
 
-
+## Reference 
+ 
+  https://appswitch.readthedocs.io/en/latest/overview.html
+  http://appswitch.io/blog/kubernetes_istio_and_network_function_devirtualization_with_appswitch/
+  https://www.cnblogs.com/cuishuai/p/10622617.html
